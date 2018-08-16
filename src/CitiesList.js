@@ -1,15 +1,14 @@
 import React from 'react';
 import "./list.css";
 
-export default () => {
+export default ({ cities, currentCity }) => {
     return( 
         <ul className="list">
-            <li className="list-item">
-                Lublin
-            </li>
-            <li className="list-item">
-                Warsaw
-            </li>
+        {cities.map(city => {
+            return <li 
+                key={city.woeid}
+                className={`list-item ${currentCity.title === city.title ? 'is-selected' : ''}`}>{city.title}</li>;
+        })}
         </ul>
     );
 }
