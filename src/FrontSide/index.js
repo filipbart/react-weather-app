@@ -34,6 +34,7 @@ class FrontSide extends Component {
                 apparentTemperature={apparentTemperature}
                 summary={summary}
                 currentCityName='Lublin'
+                onClick={this.props.onClick}
           />
         )
     }

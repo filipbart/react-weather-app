@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import FrontSide from './FrontSide/';
-import moment from "moment";
+import BackSide from './BackSide';
 import "./panel.css";
 
 class App extends Component {
+  state = {flipped: true};
+
+  onFlip = () => {
+    this.setState({ flipped: !this.state.flipped});
+  };
+
   render() {
     return (
-      <div className="panel">
+      <div className={`panel ${this.state.flipped ? "flip" : ""} `}>
         <div className="panel-front">
-          <FrontSide />
+          <FrontSide onClick={this.onFlip} />
         </div>
         <div className="panel-back">
-        
+        <BackSide onClick={this.onFlip} />
         </div>
       </div>
     );
