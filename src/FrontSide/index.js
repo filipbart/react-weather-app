@@ -5,12 +5,34 @@ import { getWeatherForLocation } from "../api";
 
 class FrontSide extends Component {
 
-    state = {currentWeather: null};
+    state = {currentWeather: null, prevCityId: null};
 
-    componentDidMount(){
+    updateWeather = () => {
         getWeatherForLocation(this.props.currentCity).then(weather => {
+            console.log(weather.currently);
             this.setState({currentWeather: weather.currently});
         });
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.currentCity.woeid !== prevState.prevCityId){
+            return {
+                prevCityId: nextProps.currentCity.woeid,
+                currentWeather: null
+            };
+        }
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(this.state.currentWeather){
+            return null;
+        }
+        this.updateWeather();
+    }
+
+    componentDidMount(){
+      this.updateWeather();
     }
 
     render(){
@@ -32,7 +54,7 @@ class FrontSide extends Component {
                 temperature={temperature}
                 apparentTemperature={apparentTemperature}
                 summary={summary}
-                currentCityName='Lublin'
+                currentCityName={this.props.currentCity.title}
                 onClick={this.props.onClick}
           />
         )
