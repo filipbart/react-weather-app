@@ -1,14 +1,16 @@
 import React from 'react';
-import CitiesList from "./CitiesList";
-
+import CitiesList from "./CitiesList/";
+import "./button.css";
 export default ({ onClick, cities, currentCity }) => {
     return(
-        <div>
+        <div className="card-back">
             <CitiesList 
                 cities={cities}
                 currentCity={currentCity}    
             />
-            <button onClick={onClick}>Flip back</button>
+            <button className="button" onClick={onClick}>
+                Flip back
+            </button>
         </div>
     );
 }
